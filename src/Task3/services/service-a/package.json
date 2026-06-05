@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "start": "node -r ./tracing.js index.js"
+  },
+  "dependencies": {
+    "@opentelemetry/api": "latest",
+    "@opentelemetry/sdk-node": "latest",
+    "@opentelemetry/auto-instrumentations-node": "latest",
+    "@opentelemetry/exporter-trace-otlp-http": "latest",
+    "express": "latest"
+  }
+}

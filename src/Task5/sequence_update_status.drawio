@@ -1,0 +1,28 @@
+<mxfile host="app.diagrams.net" modified="2026-06-05T00:00:00.000Z" agent="ChatGPT" version="24.7.17" type="device">
+<diagram id="task5_sequence_update_status_fixed.drawio" name="Page-1">
+<mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0"><root>
+<mxCell id="0"/>
+<mxCell id="1" parent="0"/>
+<mxCell id="title" value="Task5: Updating order status and invalidating Redis cache" style="text;html=1;strokeColor=none;fillColor=none;fontSize=20;fontStyle=1;align=center;" vertex="1" parent="1"><mxGeometry x="180" y="20" width="800" height="40" as="geometry"/></mxCell>
+<mxCell id="operator_box" value="Operator" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="70" y="90" width="140" height="44" as="geometry"/></mxCell>
+<mxCell id="operator_line" style="shape=line;html=1;strokeWidth=1;dashed=1;strokeColor=#666666;" vertex="1" parent="1"><mxGeometry x="140" y="134" width="1" height="560" as="geometry"/></mxCell>
+<mxCell id="ui_box" value="MES UI" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="260" y="90" width="140" height="44" as="geometry"/></mxCell>
+<mxCell id="ui_line" style="shape=line;html=1;strokeWidth=1;dashed=1;strokeColor=#666666;" vertex="1" parent="1"><mxGeometry x="330" y="134" width="1" height="560" as="geometry"/></mxCell>
+<mxCell id="api_box" value="MES API" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="450" y="90" width="140" height="44" as="geometry"/></mxCell>
+<mxCell id="api_line" style="shape=line;html=1;strokeWidth=1;dashed=1;strokeColor=#666666;" vertex="1" parent="1"><mxGeometry x="520" y="134" width="1" height="560" as="geometry"/></mxCell>
+<mxCell id="redis_box" value="Redis Cache" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="650" y="90" width="140" height="44" as="geometry"/></mxCell>
+<mxCell id="redis_line" style="shape=line;html=1;strokeWidth=1;dashed=1;strokeColor=#666666;" vertex="1" parent="1"><mxGeometry x="720" y="134" width="1" height="560" as="geometry"/></mxCell>
+<mxCell id="db_box" value="MES DB" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="850" y="90" width="140" height="44" as="geometry"/></mxCell>
+<mxCell id="db_line" style="shape=line;html=1;strokeWidth=1;dashed=1;strokeColor=#666666;" vertex="1" parent="1"><mxGeometry x="920" y="134" width="1" height="560" as="geometry"/></mxCell>
+<mxCell id="m0" value="1. Take order to work" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="140" y="170" as="sourcePoint"/><mxPoint x="330" y="170" as="targetPoint"/></mxGeometry></mxCell>
+<mxCell id="m1" value="2. PATCH /orders/{orderId}/status" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="330" y="215" as="sourcePoint"/><mxPoint x="520" y="215" as="targetPoint"/></mxGeometry></mxCell>
+<mxCell id="m2" value="3. BEGIN; UPDATE order status; INSERT status history; COMMIT" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="520" y="270" as="sourcePoint"/><mxPoint x="920" y="270" as="targetPoint"/></mxGeometry></mxCell>
+<mxCell id="m3" value="4. OK" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;dashed=1;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="920" y="325" as="sourcePoint"/><mxPoint x="520" y="325" as="targetPoint"/></mxGeometry></mxCell>
+<mxCell id="m4" value="5. DEL list:PRICE_CALCULATED:*" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;strokeColor=#d79b00;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="520" y="385" as="sourcePoint"/><mxPoint x="720" y="385" as="targetPoint"/></mxGeometry></mxCell>
+<mxCell id="m5" value="6. DEL list:MANUFACTURING_STARTED:*" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;strokeColor=#d79b00;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="520" y="435" as="sourcePoint"/><mxPoint x="720" y="435" as="targetPoint"/></mxGeometry></mxCell>
+<mxCell id="m6" value="7. DEL dashboard:statuses" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;strokeColor=#d79b00;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="520" y="485" as="sourcePoint"/><mxPoint x="720" y="485" as="targetPoint"/></mxGeometry></mxCell>
+<mxCell id="m7" value="8. 200 OK" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;dashed=1;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="520" y="545" as="sourcePoint"/><mxPoint x="330" y="545" as="targetPoint"/></mxGeometry></mxCell>
+<mxCell id="m8" value="9. Status updated" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;dashed=1;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="330" y="590" as="sourcePoint"/><mxPoint x="140" y="590" as="targetPoint"/></mxGeometry></mxCell>
+<mxCell id="note0" value="Write path: MES DB remains the source of truth.&amp;lt;br&amp;gt;After successful commit MES API invalidates related Redis keys." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#666666;" vertex="1" parent="1"><mxGeometry x="610" y="660" width="450" height="80" as="geometry"/></mxCell>
+</root></mxGraphModel>
+</diagram></mxfile>
